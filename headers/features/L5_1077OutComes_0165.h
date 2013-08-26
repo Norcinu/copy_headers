@@ -1,0 +1,21 @@
+unsigned char L5_Outcome_0165[0][15]={	 //	 0	 165
+{ AC, KN, JA, KN, TN, AC, KN, JA, QN, TN, ST, ST, ST, ST, ST }, 	 //1	 165	 165
+{ AC, KN, ST, QN, TN, AC, ST, AC, ST, TN, ST, QN, KN, JA, ST }, 	 //2	 165	 165
+{ AC, KN, JA, KN, TN, AC, QN, JA, QN, TN, ST, ST, ST, ST, ST }, 	 //3	 165	 165
+{ AC, QN, ST, QN, TN, AC, ST, AC, ST, TN, ST, JA, KN, JA, ST }, 	 //4	 165	 165
+{ AC, KN, JA, QN, TN, ST, ST, ST, ST, ST, KN, QN, AC, JA, AC }, 	 //5	 165	 165
+{ AC, QN, JA, QN, TN, ST, ST, ST, ST, ST, KN, JA, AC, JA, AC }, 	 //6	 165	 165
+{ ST, KN, JA, QN, ST, KN, ST, JA, ST, AC, KN, QN, ST, JA, KN }, 	 //7	 165	 165
+{ ST, ST, ST, ST, ST, KN, QN, AC, JA, AC, KN, QN, KN, TN, KN }, 	 //8	 165	 165
+{ ST, QN, JA, QN, ST, KN, ST, JA, ST, AC, KN, JA, ST, JA, KN }, 	 //9	 165	 165
+{ ST, ST, ST, ST, ST, KN, JA, AC, JA, AC, KN, TN, KN, TN, KN }, 	 //10	 165	 165
+{ TN, KN, JA, KN, TN, TN, KN, JA, QN, TN, ST, ST, ST, ST, ST }, 	 //11	 165	 165
+{ TN, KN, ST, QN, TN, TN, ST, AC, ST, TN, ST, QN, KN, JA, ST }, 	 //12	 165	 165
+{ TN, KN, JA, KN, TN, TN, QN, JA, QN, TN, ST, ST, ST, ST, ST }, 	 //13	 165	 165
+{ TN, QN, ST, QN, TN, TN, ST, AC, ST, TN, ST, JA, KN, JA, ST }, 	 //14	 165	 165
+{ TN, KN, JA, QN, TN, ST, ST, ST, ST, ST, AC, QN, AC, JA, AC }, 	 //15	 165	 165
+{ TN, QN, JA, QN, TN, ST, ST, ST, ST, ST, AC, JA, AC, JA, AC }, 	 //16	 165	 165
+{ ST, KN, JA, QN, ST, AC, ST, JA, ST, AC, KN, QN, ST, JA, KN }, 	 //17	 165	 165
+{ ST, ST, ST, ST, ST, AC, QN, AC, JA, AC, KN, QN, KN, TN, KN }, 	 //18	 165	 165
+{ ST, QN, JA, QN, ST, AC, ST, JA, ST, AC, KN, JA, ST, JA, KN }, 	 //19	 165	 165
+{ ST, ST, ST, ST, ST, AC, JA, AC, JA, AC, KN, TN, KN, TN, KN }, 	 //20	 165	 165
