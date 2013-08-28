@@ -1,4 +1,4 @@
-#!/usr/bin/perl 
+#!/usr/bin/perl  
 
 =pod
     Program to parse a folder of header files relating to the games outcome tables. Merges result into one outcome.h file.
@@ -12,17 +12,12 @@ use Cwd;
 use constant false => 0;
 use constant true  => 1;
 
-my %feature_values = (97,"crab3", 115, "lobster3", 116, "lobster4",
-    117, "lobster5");
-
 my $outcomes = "outcomes.h";
 my @win_values;
-my $allow_event_cast = "(unsigned char *)" # concat this with the filename
+my $allow_event_cast = "(unsigned char *)"; # concat this with the filename
 
-# outcomes_180 is used twice, once for £1.80 and once for wonga4
 sub parse_directory($) {
     my $start_dir = $_[0];
-    printf $start_dir, "\n";
     my @headers;
     
     if (-d $start_dir) {
@@ -41,16 +36,14 @@ sub parse_directory($) {
             next if ($file =~ m/^\./);
 
             my $full_path = $start_dir . $file;
-          
-
+      
             if (&check_extension($full_path)) {
-                #print $full_path, "\n";                
                 push(@headers, $full_path) if (-f $full_path);
             }    
         }
         
         print "number of header files is ", 0+@headers, "\n"; 
-        
+         
         if (length(@headers) == 0) {
             print "Empty directory listing. Pass me some header files
                 please.\n";
@@ -71,23 +64,41 @@ sub check_extension($) {
     }
 }
 
-sub parse_file($) {
-    my $file = $_[0];
+sub parse_file {
+    my $file = $_[0]; 
+    my $op = $_[1];
+    
+    if ($op == 0) {
+        print "op is zero\n";
+        return;
+    }
+    print "$file\n";
     open FILE, "<$file" or die $!;
     open OUTC_FILE, ">>$outcomes" or die $!;
     my $counter = 1;
     my @lines = <FILE>; 
     my $file_counter = 0+@lines;
     push @win_values, $file_counter;
-
-    for (@lines) {
-        s/L5_Outcome_0+/outcomes_/; 
-        if ($counter == 1) {
-            $file_counter--;
-            s/\[(\d+)\]/[$file_counter]/;
+   
+    splice(@lines, 0, 1) if ($lines[0] =~ /#include/);
+    if ($op == 1) {
+        for (@lines) {
+            $_ = &parse_and_replace("L5_Outcome_0+","outcomes_", $file_counter,
+               $counter);
+            print OUTC_FILE $_;
+            $counter++;
         }
-        print OUTC_FILE $_;
-        $counter++;
+    } elsif ($op == 2) {
+    
+        my ($feature_number) = $file =~ /_0(\d+)/;
+        my $ftr_str_replacement = &select_which_feature($feature_number);
+        for (@lines) {
+            $_ = &parse_and_replace("L5_Outcome_[0-9]+", "outcomes_".
+                &select_which_feature($feature_number), $file_counter, 
+                $counter);
+            print OUTC_FILE $_;
+            $counter++;
+        }
     }
 
     print OUTC_FILE "\n\n";    
@@ -95,18 +106,77 @@ sub parse_file($) {
     close OUTC_FILE or die $!;
 }
 
-sub write_game_allow_event($) {
+sub select_which_feature {
+    if ($_[0] == 97) {
+        return "crab3";
+    } elsif ($_[0] == 115) {
+        return "lobster3";
+    } elsif ($_[0] == 116) {
+        return "lobster4";
+    } elsif ($_[0] == 117) {
+        return "lobster5";
+    } elsif ($_[0] == 131) {
+        return "puffer3";
+    } elsif ($_[0] == 132) {
+        return "puffer4";
+    } elsif ($_[0] == 133) {
+        return "puffer5";
+    } elsif ($_[0] == 147) {
+        return "shell3";
+    } elsif ($_[0] == 148) {
+        return "shell4";
+    } elsif ($_[0] == 149) {
+        return "shell5";
+    } elsif ($_[0] == 163) {
+        return "starfish3";
+    } elsif ($_[0] == 164) {
+        return "starfish4";
+    } elsif ($_[0] == 165) {
+        return "starfish5";
+    } elsif ($_[0] == 179) {
+        return "wonga3";
+    } elsif ($_[0] == 180) {
+        return "wonga4";
+    } elsif ($_[0] == 181) {
+        return "wonga5";
+    }
+    else {
+        return "";
+    }
+}
+
+sub parse_and_replace {
+    my $requirement_str = $_[0];
+    my $replacement_str = $_[1];
+    my $file_ctr = $_[2];
+    my $final = "";
     
+    s/$requirement_str/$replacement_str/;
+
+    if ($_[3] == 1) {
+        $file_ctr--;
+        s/\[(\d+)\]/[$file_ctr]/;
+    }
+
+    return $_;
 }
 
-my @all_files = &parse_directory($ARGV[0]);
-#print "key 97 is ", $feature_values{97}, "\n";
+sub get_header_type {
+    my $operation_type = 0;
+    if ($ARGV[0] eq "-w") {
+        $operation_type = 1;    
+    } elsif ($ARGV[0] eq "-f") {
+        $operation_type = 2;
+    } 
+    print "operation_type = $operation_type\n";
+    return $operation_type;
+}
 
-#for my $index (@all_files) {
+my @all_files = &parse_directory($ARGV[1]);
 for (my $i = 0; $i < 0+@all_files; $i++) {
-    &parse_file($all_files[$i]);
+    #print "dalston\n";
+    #&get_header_type();
+    &parse_file($all_files[$i], &get_header_type());
 }
-
-#&parse_file($all_files[2]);
 
 

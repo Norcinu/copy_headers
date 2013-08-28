@@ -1,3 +1,5 @@
+#include "ReelDefine.h"
+
 unsigned char L5_Outcome_3300[100][15]={	 //	 0	 3300
 { AC, AC, JA, JA, JA, LO, AC, TN, TN, TN, AC, LO, AC, AC, AC }, 	 //	 1	 3300
 { AC, WN, JA, JA, JA, LO, AC, TN, TN, TN, AC, KN, AC, AC, AC }, 	 //	 2	 3300

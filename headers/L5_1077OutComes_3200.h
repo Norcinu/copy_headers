@@ -1,28 +1,3 @@
-unsigned char L5_Outcome_3200[1000][15]={	 //	 0	 3200
-{ AC, SH, JA, SK, QN, LO, AC, ST, JA, SH, AC, AC, AC, JA, JA }, 	 //	 1	 3200
-{ AC, SH, JA, SK, SH, LO, AC, ST, JA, JA, AC, AC, AC, JA, JA }, 	 //	 2	 3200
-{ AC, SH, JA, SK, JA, LO, AC, ST, JA, JA, AC, AC, AC, JA, JA }, 	 //	 3	 3200
-{ AC, SH, JA, SK, QN, LO, AC, ST, JA, PF, AC, AC, AC, JA, JA }, 	 //	 4	 3200
-{ AC, SH, JA, JA, QN, LO, AC, ST, JA, SH, AC, AC, AC, JA, JA }, 	 //	 5	 3200
-{ AC, SH, JA, JA, SH, LO, AC, ST, JA, JA, AC, AC, AC, JA, JA }, 	 //	 6	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, JA, JA, AC, AC, AC, JA, WN }, 	 //	 7	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, JA, WN, AC, AC, AC, JA, TN }, 	 //	 8	 3200
-{ AC, SH, JA, JA, QN, LO, AC, ST, JA, PF, AC, AC, AC, JA, JA }, 	 //	 9	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, JA, TN, AC, AC, AC, JA, AC }, 	 //	 10	 3200
-{ AC, SH, JA, JA, QN, LO, AC, ST, JA, SH, AC, AC, AC, SH, JA }, 	 //	 11	 3200
-{ AC, SH, JA, JA, SH, LO, AC, ST, JA, JA, AC, AC, AC, SH, JA }, 	 //	 12	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, JA, JA, AC, AC, AC, SH, WN }, 	 //	 13	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, JA, WN, AC, AC, AC, SH, TN }, 	 //	 14	 3200
-{ AC, SH, JA, JA, QN, LO, AC, ST, JA, PF, AC, AC, AC, SH, JA }, 	 //	 15	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, JA, TN, AC, AC, AC, SH, AC }, 	 //	 16	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, SH, JA, AC, AC, AC, TN, JA }, 	 //	 17	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, SH, JA, AC, AC, AC, TN, WN }, 	 //	 18	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, SH, WN, AC, AC, AC, TN, TN }, 	 //	 19	 3200
-{ AC, SH, JA, JA, JA, LO, AC, ST, SH, TN, AC, AC, AC, TN, AC }, 	 //	 20	 3200
-{ AC, SH, JA, ST, QN, LO, AC, ST, JA, SH, AC, AC, AC, TN, JA }, 	 //	 21	 3200
-{ AC, SH, JA, ST, SH, LO, AC, ST, JA, JA, AC, AC, AC, TN, JA }, 	 //	 22	 3200
-{ AC, SH, JA, ST, JA, LO, AC, ST, JA, JA, AC, AC, AC, TN, JA }, 	 //	 23	 3200
-{ AC, SH, JA, ST, QN, LO, AC, ST, JA, PF, AC, AC, AC, TN, JA }, 	 //	 24	 3200
 #include "ReelDefine.h"
 
 unsigned char L5_Outcome_3200[1000][15]={	 //	 0	 3200
