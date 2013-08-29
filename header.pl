@@ -41,15 +41,13 @@ sub parse_directory($) {
                 push(@headers, $full_path) if (-f $full_path);
             }    
         }
-        
-        print "number of header files is ", 0+@headers, "\n"; 
-         
+               
         if (length(@headers) == 0) {
             print "Empty directory listing. Pass me some header files
                 please.\n";
             return;
         }
-                
+                  
         closedir(DIR);
     }
     return (@headers);
@@ -57,7 +55,7 @@ sub parse_directory($) {
 
 sub check_extension($) {
     my $file_name = $_[0];
-    if ($file_name =~ /.h/) {
+    if ($file_name =~ /\.h/) {
         return true;
     } else {
         return false;
@@ -72,28 +70,27 @@ sub parse_file {
         print "op is zero\n";
         return;
     }
-    print "$file\n";
+   
     open FILE, "<$file" or die $!;
     open OUTC_FILE, ">>$outcomes" or die $!;
     my $counter = 1;
     my @lines = <FILE>; 
     my $file_counter = 0+@lines;
     push @win_values, $file_counter;
-   
-    splice(@lines, 0, 1) if ($lines[0] =~ /#include/);
+     
+    #splice(@lines, 0, 2) if ($lines[0] =~ /#include/);
+    shift @lines if ($lines[0] =~ /\#include/);
     if ($op == 1) {
         for (@lines) {
-            $_ = &parse_and_replace("L5_Outcome_0+","outcomes_", $file_counter,
-               $counter);
+            $_ = &parse_and_replace("outcome_0+","outcomes_", $file_counter, $counter);
             print OUTC_FILE $_;
             $counter++;
         }
     } elsif ($op == 2) {
-    
         my ($feature_number) = $file =~ /_0(\d+)/;
         my $ftr_str_replacement = &select_which_feature($feature_number);
         for (@lines) {
-            $_ = &parse_and_replace("L5_Outcome_[0-9]+", "outcomes_".
+            $_ = &parse_and_replace("outcome_[0-9]+", "outcomes_".
                 &select_which_feature($feature_number), $file_counter, 
                 $counter);
             print OUTC_FILE $_;
@@ -101,7 +98,12 @@ sub parse_file {
         }
     }
 
-    print OUTC_FILE "\n\n";    
+    my $last_line = $lines[-1];
+    if ($last_line =~ /},/) { 
+        print OUTC_FILE "};\n\n";    
+    } else {
+        print OUTC_FILE "\n\n";
+    }
     close FILE or die $!;
     close OUTC_FILE or die $!;
 }
@@ -139,8 +141,7 @@ sub select_which_feature {
         return "wonga4";
     } elsif ($_[0] == 181) {
         return "wonga5";
-    }
-    else {
+    } else {
         return "";
     }
 }
@@ -150,12 +151,16 @@ sub parse_and_replace {
     my $replacement_str = $_[1];
     my $file_ctr = $_[2];
     my $final = "";
-    
-    s/$requirement_str/$replacement_str/;
 
-    if ($_[3] == 1) {
-        $file_ctr--;
+    s/$requirement_str/$replacement_str/;
+    
+    if ($_[3] == 2) {
+        $file_ctr -= 3;
         s/\[(\d+)\]/[$file_ctr]/;
+        
+        open HEADER_INFO, ">>", "info.txt" or die $!;
+        print HEADER_INFO $_;
+        close HEADER_INFO;
     }
 
     return $_;
@@ -168,15 +173,25 @@ sub get_header_type {
     } elsif ($ARGV[0] eq "-f") {
         $operation_type = 2;
     } 
-    print "operation_type = $operation_type\n";
     return $operation_type;
 }
 
-my @all_files = &parse_directory($ARGV[1]);
-for (my $i = 0; $i < 0+@all_files; $i++) {
-    #print "dalston\n";
-    #&get_header_type();
-    &parse_file($all_files[$i], &get_header_type());
+sub check_start_file_exist {
+    my $win_path = $ARGV[1] . $outcomes;
+    my $info_path = $ARGV[1] . "info.txt";
+
+    if (-e $win_path) {
+        print "Removing starting files.\n";
+        unlink $win_path or warn "Could not unlink $win_path.\n";
+        unlink $info_path or warn "Could not unlink $info_path\n";
+    } else {
+        print "$win_path does not exist... yet.\n"
+    }
 }
 
+check_start_file_exist();
+my @all_files = &parse_directory($ARGV[1]);
+for (my $i = 0; $i < 0+@all_files; $i++) {
+    &parse_file($all_files[$i], &get_header_type());
+}
 
